@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, Text, StyleSheet, Image, StatusBar, Animated} from 'react-native';
 import * as faker from 'faker';
 
@@ -15,6 +15,10 @@ const data = [...Array(30)].map((_, index) => ({
 
 export default () => {
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  scrollY.addListener(({value}) => {
+    console.log('ScrollY: ', value);
+  });
 
   return (
     <View style={styles.container}>
@@ -33,12 +37,12 @@ export default () => {
         contentContainerStyle={styles.flatList}
         renderItem={({item, index}) => {
           const scale = scrollY.interpolate({
-            inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 1)],
+            inputRange: [-1, 0, SIZE_ITEM * index, SIZE_ITEM * (index + 2)],
             outputRange: [1, 1, 1, 0],
           });
 
           const opacity = scrollY.interpolate({
-            inputRange: [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 0.9)],
+            inputRange: [-1, 0, SIZE_ITEM * index, SIZE_ITEM * (index + 1)],
             outputRange: [1, 1, 1, 0],
           });
 
@@ -68,7 +72,7 @@ const BG_IMAGE =
 
 const SIZE_AVATAR = 70;
 const SIZE_SPACING = 20;
-const ITEM_SIZE = SIZE_AVATAR + SIZE_SPACING * 3;
+const SIZE_ITEM = SIZE_AVATAR + SIZE_SPACING * 3;
 
 const styles = StyleSheet.create({
   container: {
