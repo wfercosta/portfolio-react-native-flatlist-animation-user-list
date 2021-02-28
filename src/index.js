@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import {View, Text, StyleSheet, Image, StatusBar, Animated} from 'react-native';
 import * as faker from 'faker';
 
@@ -54,7 +54,7 @@ export default () => {
                 opacity,
               }}>
               <Image source={{uri: item.avatar}} style={styles.avatar} />
-              <View style={styles.cardDetails}>
+              <View>
                 <Text style={styles.cardDetailsName}>{item.name}</Text>
                 <Text style={styles.cardDetailsJobTitle}>{item.jobTitle}</Text>
                 <Text style={styles.cardDetailsEmail}>{item.email}</Text>
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 20,
   },
-  cardDetails: {},
   cardDetailsName: {
     fontSize: 22,
     fontWeight: '700',
